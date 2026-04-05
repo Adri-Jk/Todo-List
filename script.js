@@ -19,63 +19,34 @@ function eliminarFila(id, boton) {
   const tareas = obtenerTareas().filter((t) => t.id !== id);
   guardarTareas(tareas);
 }
-body {
-  margin: 0;
-  background-color: #e8f0fe;
-  font-family: sans-serif;
-  padding: 16px;
+function agregarFila() {
+  const descripcion = document.getElementById("inputDescripcion").value.trim();
+  const fecha = document.getElementById("inputFecha").value;
+  const terminado = document.getElementById("inputTerminado").value.trim();
+
+  if (!descripcion || !fecha || !terminado) {
+    alert("Completá todos los campos.");
+    return;
+  }
+
+  const tbody = document.getElementById("cuerpoTabla");
+  const fila = document.createElement("tr");
+
+  fila.innerHTML = `
+    <td>${descripcion}</td>
+    <td>${fecha}</td>
+    <td>${terminado}</td>
+    <td><button class="btn-eliminar" onclick="eliminarFila(this)">Eliminar</button></td>
+  `;
+
+  tbody.appendChild(fila);
+
+  document.getElementById("inputDescripcion").value = "";
+  document.getElementById("inputFecha").value = "";
+  document.getElementById("inputTerminado").value = "";
 }
-h1 {
-  font-size: 20px;
-  color: #1a237e;
-}
-.formulario {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-input {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #90caf9;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-table{
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  table-layout: fixed;
-  overflow-x: auto;
-}
-th {
-  background-color: #1565c0;
-  color: white;
-  padding: 12px 16px;
-  text-align: left;
-}
-td {
-  padding: 10px 16px;
-  border-bottom: 1px solid #e3eaf5;
-}
-.btn-agregar {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  background-color: #1565c0;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.btn-eliminar {
-  padding: 8px 12px;
-  background-color: #e53935;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+
+function eliminarFila(boton) {
+  const fila = boton.closest("tr");
+  fila.remove();
 }
