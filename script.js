@@ -40,6 +40,7 @@ function agregarFila() {
   `;
 
   tbody.appendChild(fila);
+  
 
   document.getElementById("inputDescripcion").value = "";
   document.getElementById("inputFecha").value = "";
