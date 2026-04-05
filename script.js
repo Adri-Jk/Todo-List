@@ -1,3 +1,24 @@
+const STORAGE_KEY = 'todoList';
+document.addEventListener('DOMContentLoaded', () => {
+  const tareas = obtenerTareas();
+  tareas.forEach((tarea) => renderizarFila(tarea));
+});
+function obtenerTareas() {
+  const datos = localStorage.getItem(STORAGE_KEY);
+  return datos ? JSON.parse(datos) : [];
+}
+function guardarTareas(tareas) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tareas));
+}
+const tareas = obtenerTareas();
+  tareas.push(tarea);
+  guardarTareas(tareas);
+function eliminarFila(id, boton) {
+  const fila = boton.closest('tr');
+  fila.remove();
+  const tareas = obtenerTareas().filter((t) => t.id !== id);
+  guardarTareas(tareas);
+}
 body {
   margin: 0;
   background-color: #e8f0fe;
